@@ -103,32 +103,39 @@ test.describe('Insurance Fraud Intelligence & Investigation Platform', () => {
     await expect(page.getByText('Arjun Kapoor').first()).toBeVisible();
   });
 
-  test('Test 5: Investigator Case Actions - Analyst updates case status, adds audit note, and verifies MongoDB persistence', async ({ page }) => {
+  test('Test 5: Investigator Case Actions - Analyst starts investigation, adds audit note, and verifies persistence', async ({ page }) => {
     await loginAsAnalyst(page);
-    await page.goto('/claims/CLM-003');
 
-    // Start or reopen investigation if needed
-    const reopenBtn = page.getByRole('button', { name: 'Reopen Case' });
+    // Ensure CLM-028 is reset to open status for determinism across repeated runs
+    await page.evaluate(async () => {
+      await fetch('/api/investigations/CLM-028', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'open' }),
+      });
+    });
+
+    // 1. Open initially open high-risk claim CLM-028
+    await page.goto('/claims/CLM-028');
+    await expect(page.locator('h1')).toContainText('Arjun Kapoor');
+
+    // 2. Click "Start Investigation"
     const startInvBtn = page.locator('#btn-start-investigation');
+    await expect(startInvBtn).toBeVisible();
+    await startInvBtn.click();
 
-    if (await reopenBtn.isVisible()) {
-      await reopenBtn.click();
-    } else if (await startInvBtn.isVisible()) {
-      await startInvBtn.click();
-    }
-
-    // Verify status updates to Under Investigation
+    // 3. Verify status updates to Under Investigation
     await expect(page.getByText('Under Investigation').first()).toBeVisible();
 
-    // Enter and submit a realistic forensic investigator note
-    const auditNote = `SIU Audit Record [${Date.now()}]: Verified Western Express Highway toll booth telemetry. FastFix flatbed tow truck crossed Dahisar toll 3 hours prior to reported crash time. Staged accident confirmed.`;
+    // 4. Enter and submit a forensic audit note
+    const auditNote = `SIU Audit Record [${Date.now()}]: Staged B-pillar collision flagged. FastFix is an un-empanelled outlier facility. Payout account shared across multiple motor collision claims.`;
     await page.locator('#input-investigation-note').fill(auditNote);
     await page.locator('#btn-add-note').click();
 
-    // Assert note is immediately visible in the activity timeline
+    // 5. Verify note appears in activity timeline
     await expect(page.locator('#investigation-notes-list')).toContainText(auditNote);
 
-    // Reload the page from MongoDB and verify full persistence
+    // 6. Reload page and verify persistence from MongoDB
     await page.reload();
     await expect(page.getByText('Under Investigation').first()).toBeVisible();
     await expect(page.locator('#investigation-notes-list')).toContainText(auditNote);
