@@ -68,18 +68,18 @@ export const DashboardPage = () => {
   const { stats = {} } = data;
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto">
+    <div className="space-y-5 sm:space-y-8 max-w-7xl mx-auto">
       {/* Page Title & Intro */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
             Claims Risk Screening & Investigation Queue
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Automated intelligence triage ranking claims by suspicious indicators, claimant history, and shared entities.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 self-start md:self-auto">
           <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             Live Triage Stream
@@ -88,8 +88,8 @@ export const DashboardPage = () => {
       </div>
 
       {/* 4 Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5">
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               Total Screened Claims
@@ -97,14 +97,14 @@ export const DashboardPage = () => {
             <p className="text-2xl font-extrabold text-slate-900 mt-1">
               {stats.totalClaims || 0}
             </p>
-            <p className="text-[11px] text-slate-400 mt-1">100% evaluated via rules</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">100% evaluated via rules</p>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700">
-            <FileText className="w-6 h-6" />
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 flex-shrink-0">
+            <FileText className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-rose-200/80 shadow-sm flex items-center justify-between relative overflow-hidden">
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-rose-200/80 shadow-sm flex items-center justify-between relative overflow-hidden">
           <div className="absolute top-0 right-0 w-24 h-24 bg-rose-500/5 rounded-bl-full pointer-events-none" />
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-rose-600">
@@ -113,16 +113,16 @@ export const DashboardPage = () => {
             <p className="text-2xl font-extrabold text-rose-700 mt-1">
               {stats.highRisk || 0}
             </p>
-            <p className="text-[11px] text-rose-500 font-medium mt-1">
+            <p className="text-[11px] text-rose-500 font-medium mt-0.5">
               Investigation Recommended
             </p>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600 border border-rose-100">
-            <ShieldAlert className="w-6 h-6" />
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600 border border-rose-100 flex-shrink-0">
+            <ShieldAlert className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-amber-200/80 shadow-sm flex items-center justify-between">
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-amber-200/80 shadow-sm flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-amber-600">
               Medium Risk Claims
@@ -130,14 +130,14 @@ export const DashboardPage = () => {
             <p className="text-2xl font-extrabold text-amber-700 mt-1">
               {stats.mediumRisk || 0}
             </p>
-            <p className="text-[11px] text-amber-600 font-medium mt-1">Review Recommended</p>
+            <p className="text-[11px] text-amber-600 font-medium mt-0.5">Review Recommended</p>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 border border-amber-100">
-            <AlertTriangle className="w-6 h-6" />
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 border border-amber-100 flex-shrink-0">
+            <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-blue-200/80 shadow-sm flex items-center justify-between">
+        <div className="bg-white p-4 sm:p-5 rounded-2xl border border-blue-200/80 shadow-sm flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-blue-600">
               Active Case Files
@@ -145,10 +145,10 @@ export const DashboardPage = () => {
             <p className="text-2xl font-extrabold text-blue-700 mt-1">
               {stats.openInvestigations || 0}
             </p>
-            <p className="text-[11px] text-blue-500 font-medium mt-1">Open / Under Review</p>
+            <p className="text-[11px] text-blue-500 font-medium mt-0.5">Open / Under Review</p>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 border border-blue-100">
-            <Clock className="w-6 h-6" />
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 border border-blue-100 flex-shrink-0">
+            <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
       </div>

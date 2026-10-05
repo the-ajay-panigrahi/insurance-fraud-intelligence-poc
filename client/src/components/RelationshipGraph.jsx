@@ -140,7 +140,7 @@ export const RelationshipGraph = ({ nodes = [], edges = [] }) => {
   }
 
   return (
-    <div className="w-full h-[450px] bg-slate-900/5 rounded-2xl border border-slate-200 overflow-hidden relative shadow-inner">
+    <div className="w-full h-[320px] sm:h-[450px] bg-slate-900/5 rounded-2xl border border-slate-200 overflow-hidden relative shadow-inner">
       <ReactFlow
         nodes={layoutedNodes}
         edges={layoutedEdges}
