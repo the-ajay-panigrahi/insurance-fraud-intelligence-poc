@@ -13,3 +13,4 @@ playwright/.cache/
 *.doc
 *.docx
 *.pdf
+scripts/
