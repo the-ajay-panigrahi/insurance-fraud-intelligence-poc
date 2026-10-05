@@ -22,12 +22,14 @@ function analyzeRisk(claim, allClaims = [], providers = []) {
       : `Policy active for ${diffDays} days prior to incident (within normal bounds)`,
   };
 
-  // 2. High Claim Amount: > 70% of policy coverage AND > 2x provider average
+  // 2. High Claim Amount: >= 70% of policy coverage OR >= 2.2x system baseline
+  const totalProviderAmounts = providers.reduce((acc, p) => acc + (p.averageClaimAmount || 0), 0);
+  const systemAvg = providers.length > 0 ? totalProviderAmounts / providers.length : 150000;
   const provider = providers.find((p) => p.providerId === claim.providerId);
-  const providerAvg = provider?.averageClaimAmount || 150000;
+  const providerAvg = provider?.averageClaimAmount || systemAvg;
   const coverageRatio = claim.policyCoverage > 0 ? claim.claimAmount / claim.policyCoverage : 0;
-  const providerRatio = providerAvg > 0 ? claim.claimAmount / providerAvg : 1;
-  const highClaimTriggered = coverageRatio > 0.7 && providerRatio > 2.0;
+  const systemRatio = systemAvg > 0 ? claim.claimAmount / systemAvg : 1;
+  const highClaimTriggered = coverageRatio >= 0.70 || systemRatio >= 2.2;
   const highClaimSignal = {
     id: "high_claim_amount",
     name: "Disproportionate Claim Amount",
@@ -35,7 +37,7 @@ function analyzeRisk(claim, allClaims = [], providers = []) {
     points: highClaimTriggered ? 20 : 0,
     weight: 20,
     explanation: highClaimTriggered
-      ? `Claim (₹${claim.claimAmount.toLocaleString("en-IN")}) is ${(coverageRatio * 100).toFixed(0)}% of coverage and ${providerRatio.toFixed(1)}x provider average`
+      ? `Claim (₹${claim.claimAmount.toLocaleString("en-IN")}) is ${(coverageRatio * 100).toFixed(0)}% of policy coverage (${systemRatio.toFixed(1)}x system benchmark)`
       : `Claim amount is within standard coverage and provider baseline`,
   };
 
@@ -61,8 +63,6 @@ function analyzeRisk(claim, allClaims = [], providers = []) {
   };
 
   // 4. Provider Anomaly: Provider average claim > 1.5x system-wide average
-  const totalProviderAmounts = providers.reduce((acc, p) => acc + (p.averageClaimAmount || 0), 0);
-  const systemAvg = providers.length > 0 ? totalProviderAmounts / providers.length : 150000;
   const providerAnomalyTriggered = providerAvg > 1.5 * systemAvg;
   const providerSignal = {
     id: "provider_anomaly",
