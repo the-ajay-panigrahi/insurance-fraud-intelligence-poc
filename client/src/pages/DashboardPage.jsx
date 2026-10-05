@@ -161,7 +161,7 @@ export const DashboardPage = () => {
             { id: "ALL", label: `All (${data.claims?.length || 0})` },
             { id: "HIGH", label: `High Risk (${stats.highRisk || 0})` },
             { id: "MEDIUM", label: `Medium Risk (${stats.mediumRisk || 0})` },
-            { id: "LOW", label: "Low Risk" },
+            { id: "LOW", label: `Low Risk (${stats.lowRisk || 0})` },
           ].map((tab) => (
             <button
               key={tab.id}

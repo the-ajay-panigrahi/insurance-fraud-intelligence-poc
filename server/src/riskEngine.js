@@ -55,8 +55,8 @@ function analyzeRisk(claim, allClaims = [], providers = []) {
     id: "repeated_claims",
     name: "Frequent Claimant History",
     triggered: repeatedTriggered,
-    points: repeatedTriggered ? 15 : 0,
-    weight: 15,
+    points: repeatedTriggered ? 20 : 0,
+    weight: 20,
     explanation: repeatedTriggered
       ? `Customer filed ${customerPastClaims.length} claims within a 12-month period (threshold: >= 3)`
       : `Claimant has ${customerPastClaims.length} claim(s) in the past 12 months`,
@@ -85,8 +85,8 @@ function analyzeRisk(claim, allClaims = [], providers = []) {
     id: "shared_entity",
     name: "Shared Payment Entity",
     triggered: sharedEntityTriggered,
-    points: sharedEntityTriggered ? 30 : 0,
-    weight: 30,
+    points: sharedEntityTriggered ? 25 : 0,
+    weight: 25,
     explanation: sharedEntityTriggered
       ? `Payment account (${claim.paymentAccountId}) is linked to ${otherCustomerIds.length} other claimant(s): ${otherCustomerIds.join(", ")}`
       : `Payment account is uniquely linked to this claimant`,

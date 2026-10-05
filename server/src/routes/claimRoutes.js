@@ -62,6 +62,7 @@ router.get("/dashboard", userAuth, async (req, res) => {
       totalClaims: allClaims.length,
       highRisk: highRiskCount,
       mediumRisk: mediumRiskCount,
+      lowRisk: allClaims.length - highRiskCount - mediumRiskCount,
       openInvestigations,
     };
 
