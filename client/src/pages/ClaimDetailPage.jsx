@@ -226,7 +226,7 @@ export const ClaimDetailPage = () => {
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <FileText className="w-4 h-4 text-slate-500" />
-              Claim & Policy Profile
+              Claim & Policy Details
             </h3>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
@@ -268,12 +268,12 @@ export const ClaimDetailPage = () => {
             </div>
           </div>
 
-          {/* Provider Stats Profile */}
+          {/* Provider Profile */}
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <Building2 className="w-4 h-4 text-teal-600" />
-                Billing Provider Profile
+                Provider Profile (Garage / Hospital)
               </h3>
               <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-700 border border-teal-200 capitalize">
                 {providerStats?.type || "Provider"}
@@ -300,7 +300,7 @@ export const ClaimDetailPage = () => {
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <Clock className="w-4 h-4 text-indigo-600" />
-              Prior Filing History ({customerHistory.length})
+              Claimant Filing History (Past Claims by This Person) ({customerHistory.length})
             </h3>
             {customerHistory.length === 0 ? (
               <p className="text-xs text-slate-400 italic">No previous claims filed by this customer.</p>
@@ -332,11 +332,11 @@ export const ClaimDetailPage = () => {
             )}
           </div>
 
-          {/* Coordinated / Related Claims */}
+          {/* Connected / Related Claims */}
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <CreditCard className="w-4 h-4 text-rose-600" />
-              Coordinated Network Connections ({relatedClaims.length})
+              Linked Claims (Shared Account or Provider) ({relatedClaims.length})
             </h3>
             {relatedClaims.length === 0 ? (
               <p className="text-xs text-slate-400 italic">No claims share provider or payment entities.</p>
@@ -381,9 +381,9 @@ export const ClaimDetailPage = () => {
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-bold text-slate-900">Multi-Entity Relationship Graph</h3>
+                <h3 className="text-sm font-bold text-slate-900">Entity Connection Map (Fraud Ring Visualizer)</h3>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Interactive network revealing shared bank accounts and providers across claimants
+                  Visual map connecting claimants, claims, payout bank accounts, and providers
                 </p>
               </div>
             </div>
@@ -397,11 +397,11 @@ export const ClaimDetailPage = () => {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-bold text-slate-900">Human Investigation & Case File</h2>
+              <h2 className="text-lg font-bold text-slate-900">Investigator Case File & Actions</h2>
               <StatusBadge status={investigation?.status || "open"} type="status" />
             </div>
             <p className="text-xs text-slate-500 mt-1">
-              Automated signals inform; human investigators decide and confirm case outcomes.
+              Automated signals highlight suspicion; only a human investigator confirms fraud or clears the claim.
             </p>
           </div>
 

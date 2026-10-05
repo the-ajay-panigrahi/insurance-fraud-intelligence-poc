@@ -73,10 +73,10 @@ export const DashboardPage = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
-            Claims Risk Screening & Triage
+            Claims Risk Screening & Investigation Queue
           </h1>
           <p className="text-sm text-slate-500 mt-1">
-            Automated intelligence triage ranking claims based on multi-entity suspicious indicators.
+            Automated intelligence triage ranking claims by suspicious indicators, claimant history, and shared entities.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -108,7 +108,7 @@ export const DashboardPage = () => {
           <div className="absolute top-0 right-0 w-24 h-24 bg-rose-500/5 rounded-bl-full pointer-events-none" />
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-rose-600">
-              High Risk
+              High Risk Claims
             </p>
             <p className="text-2xl font-extrabold text-rose-700 mt-1">
               {stats.highRisk || 0}
@@ -125,7 +125,7 @@ export const DashboardPage = () => {
         <div className="bg-white p-5 rounded-2xl border border-amber-200/80 shadow-sm flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-amber-600">
-              Medium Risk
+              Medium Risk Claims
             </p>
             <p className="text-2xl font-extrabold text-amber-700 mt-1">
               {stats.mediumRisk || 0}
@@ -140,7 +140,7 @@ export const DashboardPage = () => {
         <div className="bg-white p-5 rounded-2xl border border-blue-200/80 shadow-sm flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-blue-600">
-              Active Investigations
+              Active Case Files
             </p>
             <p className="text-2xl font-extrabold text-blue-700 mt-1">
               {stats.openInvestigations || 0}
@@ -199,11 +199,11 @@ export const DashboardPage = () => {
                 <th className="py-3 px-4">Claim ID</th>
                 <th className="py-3 px-4">Claimant</th>
                 <th className="py-3 px-4">Type</th>
-                <th className="py-3 px-4">Amount</th>
+                <th className="py-3 px-4">Claim Amount</th>
                 <th className="py-3 px-4">Risk Score</th>
-                <th className="py-3 px-4">Risk Level</th>
+                <th className="py-3 px-4">Risk Severity</th>
                 <th className="py-3 px-4">Primary Suspicious Indicator</th>
-                <th className="py-3 px-4">Status</th>
+                <th className="py-3 px-4">Case Status</th>
                 <th className="py-3 px-4 text-right">Action</th>
               </tr>
             </thead>

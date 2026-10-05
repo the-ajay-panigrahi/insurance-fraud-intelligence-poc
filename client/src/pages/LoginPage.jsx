@@ -44,10 +44,10 @@ export const LoginPage = () => {
             <ShieldCheck className="w-8 h-8" />
           </div>
           <h1 className="text-2xl font-extrabold text-white tracking-tight">
-            FraudSentinel Intelligence
+            Insurance Fraud Intelligence
           </h1>
           <p className="text-slate-400 text-sm mt-1">
-            Enterprise Claims Fraud Screening & Investigation Platform
+            Claims Risk Screening & Investigation Platform
           </p>
         </div>
 

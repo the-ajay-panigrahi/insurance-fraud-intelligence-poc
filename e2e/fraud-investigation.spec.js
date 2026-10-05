@@ -19,9 +19,9 @@ test.describe('Insurance Fraud Intelligence & Investigation Flow', () => {
 
     // 4. Assert dashboard loads with stats and claims queue
     await page.waitForURL('/');
-    await expect(page.locator('h1')).toContainText('Claims Risk Screening & Triage');
+    await expect(page.locator('h1')).toContainText('Claims Risk Screening');
     await expect(page.getByText('Total Screened Claims')).toBeVisible();
-    await expect(page.getByText('High Risk', { exact: true })).toBeVisible();
+    await expect(page.getByText('High Risk Claims', { exact: true })).toBeVisible();
 
     // 5. Verify claims table rendered and locate high-risk claim CLM-003
     const highRiskClaimRow = page.locator('[data-testid="claim-row-CLM-003"]');
@@ -39,7 +39,7 @@ test.describe('Insurance Fraud Intelligence & Investigation Flow', () => {
     await expect(page.getByText('Shared Payment Entity')).toBeVisible();
 
     // 8. Verify Multi-Entity Relationship Graph is mounted
-    await expect(page.getByText('Multi-Entity Relationship Graph')).toBeVisible();
+    await expect(page.getByText('Entity Connection Map')).toBeVisible();
     const reactFlowElement = page.locator('.react-flow');
     await expect(reactFlowElement).toBeVisible();
 
