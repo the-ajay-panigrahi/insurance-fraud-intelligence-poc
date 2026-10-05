@@ -19,7 +19,7 @@ export const AppShell = () => {
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       {/* Top Navbar */}
       <header className="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
+        <div className="max-w-screen-2xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
           {/* Brand & Main Navigation */}
           <div className="flex items-center gap-3 sm:gap-6 min-w-0">
             <Link to="/" className="flex items-center gap-2 sm:gap-2.5 group min-w-0">
@@ -87,7 +87,7 @@ export const AppShell = () => {
       </header>
 
       {/* Main Body */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8">
+      <main className="flex-1 max-w-screen-2xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8">
         <Outlet />
       </main>
     </div>

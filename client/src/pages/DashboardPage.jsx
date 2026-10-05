@@ -68,7 +68,7 @@ export const DashboardPage = () => {
   const { stats = {} } = data;
 
   return (
-    <div className="space-y-5 sm:space-y-8 max-w-7xl mx-auto">
+    <div className="space-y-5 sm:space-y-8 w-full">
       {/* Page Title & Intro */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
         <div>
@@ -196,21 +196,20 @@ export const DashboardPage = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-slate-50/80 border-b border-slate-200 text-[11px] font-semibold uppercase tracking-wider text-slate-500 whitespace-nowrap">
-                <th className="py-3 px-4">Claim ID</th>
-                <th className="py-3 px-4">Claimant</th>
-                <th className="py-3 px-4">Type</th>
-                <th className="py-3 px-4">Claim Amount</th>
-                <th className="py-3 px-4">Risk Score</th>
-                <th className="py-3 px-4">Risk Severity</th>
-                <th className="py-3 px-4">Primary Suspicious Indicator</th>
-                <th className="py-3 px-4">Case Status</th>
-                <th className="py-3 px-4 text-right">Action</th>
+                <th className="py-3 px-3.5">Claim ID</th>
+                <th className="py-3 px-3.5">Claimant</th>
+                <th className="py-3 px-3.5">Type</th>
+                <th className="py-3 px-3.5">Claim Amount</th>
+                <th className="py-3 px-3.5">Risk Evaluation</th>
+                <th className="py-3 px-3.5">Primary Suspicious Indicator</th>
+                <th className="py-3 px-3.5">Case Status</th>
+                <th className="py-3 px-3.5 text-right">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-xs">
               {filteredClaims.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="py-12 text-center text-slate-400">
+                  <td colSpan={8} className="py-12 text-center text-slate-400">
                     No claims match your current filter and search criteria.
                   </td>
                 </tr>
@@ -222,33 +221,33 @@ export const DashboardPage = () => {
                     onClick={() => navigate(`/claims/${claim.claimId}`)}
                     className="hover:bg-slate-50/80 cursor-pointer transition-colors group"
                   >
-                    <td className="py-3.5 px-4 font-bold text-slate-900 font-mono whitespace-nowrap">
+                    <td className="py-3 px-3.5 font-bold text-slate-900 font-mono whitespace-nowrap">
                       {claim.claimId}
                     </td>
-                    <td className="py-3.5 px-4 whitespace-nowrap">
-                      <div className="font-semibold text-slate-900">{claim.customerName}</div>
-                      <div className="text-[10px] text-slate-400">{claim.customerId}</div>
+                    <td className="py-3 px-3.5 whitespace-nowrap">
+                      <div className="font-semibold text-slate-900 leading-tight">{claim.customerName}</div>
+                      <div className="text-[10px] text-slate-400 font-mono mt-0.5">{claim.customerId}</div>
                     </td>
-                    <td className="py-3.5 px-4 capitalize text-slate-600 whitespace-nowrap">
-                      <span className="px-2 py-0.5 rounded bg-slate-100 font-medium text-[11px]">
+                    <td className="py-3 px-3.5 whitespace-nowrap">
+                      <span className="px-2 py-0.5 rounded bg-slate-100 font-medium text-[11px] text-slate-700 capitalize">
                         {claim.policyType}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 font-semibold text-slate-900 whitespace-nowrap">
+                    <td className="py-3 px-3.5 font-semibold text-slate-900 whitespace-nowrap">
                       ₹{claim.claimAmount.toLocaleString("en-IN")}
                     </td>
-                    <td className="py-3.5 px-4 whitespace-nowrap">
-                      <RiskIndicator score={claim.riskScore} size="sm" />
+                    <td className="py-3 px-3.5 whitespace-nowrap">
+                      <div className="flex items-center gap-2">
+                        <RiskIndicator score={claim.riskScore} size="sm" />
+                        <StatusBadge status={claim.riskLevel} type="risk" />
+                      </div>
                     </td>
-                    <td className="py-3.5 px-4 whitespace-nowrap">
-                      <StatusBadge status={claim.riskLevel} type="risk" />
-                    </td>
-                    <td className="py-3.5 px-4 max-w-xs">
-                      <p className="truncate text-slate-600 text-[11px] font-medium" title={claim.topReason}>
+                    <td className="py-3 px-3.5 min-w-[200px] max-w-sm">
+                      <p className="truncate text-slate-700 text-[11px] font-medium" title={claim.topReason}>
                         {claim.topReason}
                       </p>
                     </td>
-                    <td className="py-3.5 px-4 whitespace-nowrap">
+                    <td className="py-3 px-3.5 whitespace-nowrap">
                       <StatusBadge status={claim.investigationStatus} type="status" />
                     </td>
                     <td className="py-3.5 px-4 text-right whitespace-nowrap">

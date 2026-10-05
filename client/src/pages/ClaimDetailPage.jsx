@@ -268,15 +268,23 @@ export const ClaimDetailPage = () => {
             </div>
           </div>
 
-          {/* Provider Profile */}
+          {/* Servicing Provider Profile */}
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <Building2 className="w-4 h-4 text-teal-600" />
-                Provider Profile (Garage / Hospital)
+                Servicing Provider Profile
               </h3>
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-700 border border-teal-200 capitalize">
-                {providerStats?.type || "Provider"}
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-teal-50 text-teal-700 border border-teal-200">
+                {providerStats?.type === "repair_shop"
+                  ? "Auto Collision & Repair Facility"
+                  : providerStats?.type === "hospital"
+                  ? "Multi-Specialty Hospital"
+                  : providerStats?.type === "clinic"
+                  ? "Specialty Clinic & Rehab Centre"
+                  : providerStats?.type === "contractor"
+                  ? "Restoration Contractor"
+                  : providerStats?.type ? providerStats.type.replace(/_/g, " ") : "Healthcare / Service Provider"}
               </span>
             </div>
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
