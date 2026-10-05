@@ -43,12 +43,16 @@ test.describe('Insurance Fraud Intelligence & Investigation Flow', () => {
     const reactFlowElement = page.locator('.react-flow');
     await expect(reactFlowElement).toBeVisible();
 
-    // 9. Start investigation if not already started
+    // 9. Start investigation or reopen case if already completed
+    const reopenBtn = page.getByRole('button', { name: 'Reopen Case' });
     const startInvBtn = page.locator('#btn-start-investigation');
-    if (await startInvBtn.isVisible()) {
+
+    if (await reopenBtn.isVisible()) {
+      await reopenBtn.click();
+    } else if (await startInvBtn.isVisible()) {
       await startInvBtn.click();
     }
-    await expect(page.getByText('Under Investigation')).toBeVisible();
+    await expect(page.getByText('Under Investigation').first()).toBeVisible();
 
     // 10. Add analytical case note
     const testNote = `Automated E2E Audit Note [${Date.now()}]: Flagged shared payout account ACCT-7890 connection with CLM-020.`;
@@ -60,7 +64,7 @@ test.describe('Insurance Fraud Intelligence & Investigation Flow', () => {
 
     // 12. Reload page and assert persistence in MongoDB
     await page.reload();
-    await expect(page.getByText('Under Investigation')).toBeVisible();
+    await expect(page.getByText('Under Investigation').first()).toBeVisible();
     await expect(page.locator('#investigation-notes-list')).toContainText(testNote);
   });
 });
