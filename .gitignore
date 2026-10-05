@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.DS_Store
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Ignore PRD and other documentation files except README.md
+*.md
+!README.md
+*.doc
+*.docx
+*.pdf
