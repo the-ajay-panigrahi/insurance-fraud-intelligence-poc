@@ -15,17 +15,19 @@ A focused engineering proof of concept demonstrating that insurance fraud detect
 
 ## Visual Platform Tour
 
+Current desktop screenshots of the monochrome interface. All records shown are synthetic demo data.
+
 ### 1. Analyst Authentication & One-Click Demo Access
-![Analyst Authentication](./screenshots/01-login.png)
+![Analyst Authentication](./screenshots/01-login-monochrome.png)
 
 ### 2. Claims Risk Screening & Triage Queue Dashboard
-![Claims Triage Queue](./screenshots/02-dashboard-triage.png)
+![Claims Triage Queue](./screenshots/02-dashboard-monochrome.png)
 
 ### 3. Claim Intelligence, Explainability & Case File
-![Claim Intelligence & Case File](./screenshots/03-claim-intelligence.png)
+![Claim Intelligence & Case File](./screenshots/03-claim-monochrome.png)
 
 ### 4. Multi-Entity Relationship Graph (Fraud Ring Visualizer)
-![Relationship Graph](./screenshots/04-relationship-graph.png)
+![Relationship Graph](./screenshots/04-graph-monochrome.png)
 
 ---
 
