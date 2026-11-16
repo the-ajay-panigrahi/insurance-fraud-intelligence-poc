@@ -9,7 +9,8 @@
     "dev:client": "npm run dev --prefix client",
     "dev": "concurrently -k -n \"SERVER,CLIENT\" -c \"blue,green\" \"npm run dev:server\" \"npm run dev:client\"",
     "test:e2e": "npx playwright test",
-    "test:e2e:ui": "npx playwright test --ui"
+    "test:e2e:ui": "npx playwright test --ui",
+    "test:ui": "playwright test --config playwright.ui.config.cjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",

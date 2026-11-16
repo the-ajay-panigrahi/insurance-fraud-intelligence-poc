@@ -13,16 +13,20 @@ export const AppShell = () => {
     navigate("/login");
   };
 
-  const isQueueActive = location.pathname === "/" || location.pathname.startsWith("/claims");
+  const isQueueActive =
+    location.pathname === "/" || location.pathname.startsWith("/claims");
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+    <div className="fi-app min-h-screen bg-slate-50 flex flex-col font-sans">
       {/* Top Navbar */}
-      <header className="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm">
+      <header className="fi-header sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm">
         <div className="max-w-screen-2xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
           {/* Brand & Main Navigation */}
           <div className="flex items-center gap-3 sm:gap-6 min-w-0">
-            <Link to="/" className="flex items-center gap-2 sm:gap-2.5 group min-w-0">
+            <Link
+              to="/"
+              className="flex items-center gap-2 sm:gap-2.5 group min-w-0"
+            >
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-rose-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-rose-900/20 group-hover:scale-105 transition-transform flex-shrink-0">
                 <ShieldAlert className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
@@ -87,7 +91,7 @@ export const AppShell = () => {
       </header>
 
       {/* Main Body */}
-      <main className="flex-1 max-w-screen-2xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8">
+      <main className="fi-main flex-1 max-w-screen-2xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-5 sm:py-8">
         <Outlet />
       </main>
     </div>

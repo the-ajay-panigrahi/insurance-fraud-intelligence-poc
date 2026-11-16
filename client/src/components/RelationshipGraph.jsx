@@ -9,7 +9,13 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import dagre from "@dagrejs/dagre";
-import { User, FileText, Building2, CreditCard, AlertCircle } from "lucide-react";
+import {
+  User,
+  FileText,
+  Building2,
+  CreditCard,
+  AlertCircle,
+} from "lucide-react";
 
 // Custom Node for Graph Entities
 const EntityNode = ({ data }) => {
@@ -49,10 +55,14 @@ const EntityNode = ({ data }) => {
           ) : (
             <FileText className="w-4 h-4 text-slate-600" />
           ),
-          borderColor: isTarget ? "border-rose-500 shadow-md ring-2 ring-rose-400/30" : "border-slate-300",
+          borderColor: isTarget
+            ? "border-rose-500 shadow-md ring-2 ring-rose-400/30"
+            : "border-slate-300",
           bgColor: isTarget ? "bg-rose-50" : "bg-white",
           tag: isTarget ? "TARGET CLAIM" : "Related Claim",
-          tagColor: isTarget ? "bg-rose-600 text-white font-bold" : "bg-slate-100 text-slate-700",
+          tagColor: isTarget
+            ? "bg-rose-600 text-white font-bold"
+            : "bg-slate-100 text-slate-700",
         };
     }
   };
@@ -69,13 +79,25 @@ const EntityNode = ({ data }) => {
           {style.icon}
           <span className="truncate max-w-[100px]">{style.tag}</span>
         </div>
-        <span className={`text-[10px] px-1.5 py-0.5 rounded-md ${style.tagColor}`}>
+        <span
+          className={`text-[10px] px-1.5 py-0.5 rounded-md ${style.tagColor}`}
+        >
           {type.toUpperCase()}
         </span>
       </div>
-      <div className="font-semibold text-slate-900 text-sm truncate">{label}</div>
-      {sublabel && <div className="text-[11px] text-slate-500 truncate mt-0.5">{sublabel}</div>}
-      <Handle type="source" position={Position.Bottom} className="!bg-slate-400" />
+      <div className="font-semibold text-slate-900 text-sm truncate">
+        {label}
+      </div>
+      {sublabel && (
+        <div className="text-[11px] text-slate-500 truncate mt-0.5">
+          {sublabel}
+        </div>
+      )}
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        className="!bg-slate-400"
+      />
     </div>
   );
 };
@@ -89,7 +111,8 @@ const nodeTypes = {
 
 export const RelationshipGraph = ({ nodes = [], edges = [] }) => {
   const { layoutedNodes, layoutedEdges } = useMemo(() => {
-    if (!nodes || nodes.length === 0) return { layoutedNodes: [], layoutedEdges: [] };
+    if (!nodes || nodes.length === 0)
+      return { layoutedNodes: [], layoutedEdges: [] };
 
     const dagreGraph = new dagre.graphlib.Graph();
     dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -134,13 +157,15 @@ export const RelationshipGraph = ({ nodes = [], edges = [] }) => {
     return (
       <div className="flex flex-col items-center justify-center p-12 text-slate-400 border border-dashed rounded-xl bg-slate-50">
         <AlertCircle className="w-8 h-8 mb-2 opacity-50" />
-        <p className="text-sm">No linked entity graph available for this claim.</p>
+        <p className="text-sm">
+          No linked entity graph available for this claim.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="w-full h-[320px] sm:h-[450px] bg-slate-900/5 rounded-2xl border border-slate-200 overflow-hidden relative shadow-inner">
+    <div className="fi-graph w-full h-[320px] sm:h-[450px] bg-slate-900/5 rounded-2xl border border-slate-200 overflow-hidden relative shadow-inner">
       <ReactFlow
         nodes={layoutedNodes}
         edges={layoutedEdges}

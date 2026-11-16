@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
-import { ShieldCheck, Lock, Mail, ArrowRight, Sparkles, AlertCircle } from "lucide-react";
+import {
+  ShieldCheck,
+  Lock,
+  Mail,
+  ArrowRight,
+  Sparkles,
+  AlertCircle,
+} from "lucide-react";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -20,7 +27,10 @@ export const LoginPage = () => {
       await login(email, password);
       navigate("/");
     } catch (err) {
-      setError(err.response?.data?.error || "Invalid credentials. Please verify your email and password.");
+      setError(
+        err.response?.data?.error ||
+          "Invalid credentials. Please verify your email and password.",
+      );
     } finally {
       setLoading(false);
     }
@@ -33,25 +43,25 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-6 selection:bg-rose-500 selection:text-white relative overflow-hidden">
+    <div className="fi-login min-h-screen bg-slate-900 flex items-center justify-center p-6 selection:bg-rose-500 selection:text-white relative overflow-hidden">
       {/* Background ambient accents */}
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="hidden absolute top-1/4 -left-20 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="hidden absolute bottom-1/4 -right-20 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-md w-full relative z-10">
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-600 to-indigo-600 text-white shadow-xl shadow-rose-900/30 mb-4 border border-rose-400/30">
+      <div className="fi-login-shell w-full relative z-10">
+        <div className="fi-login-intro">
+          <div className="fi-login-emblem inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-600 to-indigo-600 text-white shadow-xl shadow-rose-900/30 mb-4 border border-rose-400/30">
             <ShieldCheck className="w-8 h-8" />
           </div>
           <h1 className="text-2xl font-extrabold text-white tracking-tight">
-            Insurance Fraud Intelligence
+            Insurance Fraud <span className="fi-keyword">Intelligence</span>
           </h1>
           <p className="text-slate-400 text-sm mt-1">
             Claims Risk Screening & Investigation Platform
           </p>
         </div>
 
-        <div className="bg-slate-800/80 backdrop-blur-xl border border-slate-700/60 rounded-2xl shadow-2xl p-8">
+        <div className="fi-login-form bg-slate-800/80 backdrop-blur-xl border border-slate-700/60 rounded-2xl shadow-2xl p-8">
           {error && (
             <div className="mb-5 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs flex items-start gap-2.5">
               <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5 text-rose-400" />
@@ -61,7 +71,10 @@ export const LoginPage = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label
+                htmlFor="email"
+                className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5"
+              >
                 Analyst Email
               </label>
               <div className="relative">
@@ -79,7 +92,10 @@ export const LoginPage = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label
+                htmlFor="password"
+                className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5"
+              >
                 Password
               </label>
               <div className="relative">

@@ -5,7 +5,11 @@
 @layer base {
   body {
     @apply bg-slate-50 text-slate-900;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family:
+      "Inter",
+      system-ui,
+      -apple-system,
+      sans-serif;
   }
 }
 
@@ -28,4 +32,677 @@
 /* React Flow styling fixes */
 .react-flow__attribution {
   display: none !important;
+}
+
+@font-face {
+  font-family: Rubik;
+  src: url("/fonts/Rubik.ttf") format("truetype");
+  font-weight: 300 900;
+  font-display: swap;
+}
+:root {
+  font-family: Rubik, Arial, sans-serif;
+  --night: #150f23;
+  --midnight: #1f1633;
+  --line: #362d59;
+  --lime: #c2ef4e;
+  --pink: #fa7faa;
+  --muted: #bdb8c0;
+  --ink: #1f1633;
+  color: var(--ink);
+  background: #f8f6fb;
+}
+body {
+  font-family: Rubik, Arial, sans-serif;
+}
+button,
+input,
+textarea {
+  font-family: inherit;
+}
+button,
+input,
+textarea,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button:not(:disabled),
+a,
+input,
+textarea {
+  touch-action: manipulation;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #9dc1f5;
+  outline-offset: 3px;
+}
+button {
+  min-height: 40px;
+}
+button:disabled {
+  cursor: wait;
+}
+::selection {
+  color: var(--midnight);
+  background: var(--lime);
+}
+.fi-keyword {
+  display: inline;
+  background: var(--lime);
+  color: var(--midnight);
+  padding: 0 0.13em;
+  border-radius: 4px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.fi-login {
+  background: var(--night);
+  background-image: url("/starfield.svg");
+  background-size: cover;
+  min-height: 100svh;
+  padding: 72px 60px;
+}
+.fi-login-shell {
+  max-width: 1152px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: center;
+  gap: 90px;
+}
+.fi-login-intro {
+  text-align: left;
+}
+.fi-login-emblem {
+  width: 78px;
+  height: 78px;
+  border-radius: 18px;
+  background: #362d59;
+  background-image: none;
+  border: 1px solid #79628c;
+  box-shadow: none;
+  transform: rotate(-7deg);
+  margin-bottom: 36px;
+}
+.fi-login-emblem svg {
+  width: 40px;
+  height: 40px;
+  color: #fa7faa;
+}
+.fi-login-intro h1 {
+  font-size: 64px;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -2px;
+  margin-bottom: 28px;
+  max-width: 600px;
+}
+.fi-login-intro p {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 2;
+  max-width: 390px;
+}
+.fi-login-form {
+  background: #fff;
+  border: 1px solid #e3deec;
+  border-radius: 12px;
+  padding: 36px;
+  box-shadow: none;
+  color: var(--ink);
+  backdrop-filter: none;
+}
+.fi-login-form form {
+  margin: 0;
+}
+.fi-login-form label {
+  color: #564765;
+  font-size: 11px;
+  letter-spacing: 1.1px;
+  margin-bottom: 10px;
+}
+.fi-login-form input {
+  color: #1f1633;
+  background: #fff;
+  border-color: #cfcfdb;
+  border-radius: 6px;
+  min-height: 48px;
+  font-size: 14px;
+}
+.fi-login-form input::placeholder {
+  color: #74647f;
+}
+.fi-login-form input + svg,
+.fi-login-form svg {
+  color: #79628c;
+}
+.fi-login-form #btn-sign-in {
+  background: var(--night);
+  background-image: none;
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: none;
+  min-height: 48px;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+.fi-login-form #btn-sign-in svg {
+  color: inherit;
+}
+.fi-login-form .relative.my-6 span {
+  background: #fff;
+  color: #685b76;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.fi-login-form .relative.my-6 .border-t {
+  border-color: #e3deec;
+}
+.fi-login-form #btn-demo-account {
+  background: #f8f6fb;
+  color: #40324e;
+  border-color: #d5c7e4;
+  border-radius: 8px;
+  padding: 14px 12px;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.fi-login-form #btn-demo-account svg {
+  color: #79628c;
+  flex-shrink: 0;
+}
+.fi-login-form form input:focus {
+  --tw-ring-color: #9dc1f5;
+}
+.fi-app {
+  background: #f8f6fb;
+  font-family: Rubik, Arial, sans-serif;
+}
+.fi-header {
+  background: var(--night);
+  border-color: var(--line);
+  color: #fff;
+  box-shadow: none;
+}
+.fi-header > div {
+  height: 86px;
+  max-width: 1536px;
+}
+.fi-header .text-slate-900,
+.fi-header .text-slate-800 {
+  color: #fff;
+}
+.fi-header .text-slate-400,
+.fi-header .text-slate-500 {
+  color: #bdb8c0;
+}
+.fi-header .border-slate-200 {
+  border-color: #493b62;
+}
+.fi-header .bg-gradient-to-tr {
+  background: #362d59;
+  background-image: none;
+  box-shadow: none;
+  border-radius: 9px;
+  width: 42px;
+  height: 42px;
+}
+.fi-header nav {
+  border-color: #493b62;
+}
+.fi-header nav a {
+  background: #fff;
+  color: #1f1633;
+  border-radius: 6px;
+  padding: 9px 14px;
+  font-weight: 500;
+  box-shadow: none;
+}
+.fi-header .hidden.md\:flex {
+  background: #241b34;
+  border-color: #493b62;
+  border-radius: 8px;
+}
+.fi-header .hidden.md\:flex .bg-indigo-100 {
+  background: #493b62;
+  color: #fff;
+}
+.fi-header #btn-sign-out {
+  border-color: #79628c;
+  color: #fff;
+  border-radius: 8px;
+  min-height: 40px;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+.fi-header #btn-sign-out:hover {
+  background: #362d59;
+}
+.fi-main {
+  padding-top: 32px;
+  padding-bottom: 64px;
+}
+.fi-queue-banner {
+  background: var(--midnight) url("/starfield.svg") center/cover;
+  color: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  gap: 28px;
+}
+.fi-queue-banner h1 {
+  color: #fff;
+  font-size: clamp(28px, 2.8vw, 44px);
+  line-height: 1.2;
+  letter-spacing: -1.2px;
+  font-weight: 600;
+  max-width: 850px;
+}
+.fi-queue-banner p {
+  color: #bdb8c0;
+  margin-top: 18px;
+  font-size: 13px;
+  line-height: 1.8;
+  max-width: 750px;
+}
+.fi-queue-banner > div:last-child {
+  flex-shrink: 0;
+}
+.fi-queue-banner > div:last-child > span {
+  background: #362d59;
+  color: #fff;
+  border: 1px solid #79628c;
+  border-radius: 5px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.fi-queue-banner > div:last-child > span > span {
+  background: #fa7faa;
+  animation: none;
+}
+.fi-stats {
+  gap: 18px;
+}
+.fi-stats > div {
+  border-color: #e3deec;
+  border-radius: 12px;
+  padding: 26px;
+  box-shadow: none;
+  min-height: 150px;
+}
+.fi-stats > div > div.absolute {
+  display: none;
+}
+.fi-stats > div > div:first-child p:nth-child(2),
+.fi-stats > div > div:nth-child(2) p:nth-child(2) {
+  font-size: 40px;
+  font-weight: 500;
+  margin-top: 12px;
+  color: #1f1633;
+  letter-spacing: -1.5px;
+}
+.fi-stats > div > div:last-child {
+  height: 44px;
+  width: 44px;
+  border-radius: 9px;
+  border: none;
+  background: #f0edf5;
+  color: #685b76;
+}
+.fi-stats p:first-child {
+  font-size: 10px;
+  letter-spacing: 0.65px;
+  font-weight: 500;
+}
+.fi-stats p:last-child {
+  font-size: 10px;
+  margin-top: 9px;
+}
+.fi-filterbar {
+  border-radius: 12px;
+  border-color: #e3deec;
+  box-shadow: none;
+  padding: 18px;
+}
+.fi-filterbar button {
+  font-size: 11px;
+  border-radius: 6px;
+  padding: 10px 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  font-weight: 500;
+}
+.fi-filterbar input {
+  border-radius: 6px;
+  min-height: 42px;
+  background: #fff;
+  font-size: 12px;
+}
+.fi-table-panel {
+  border-radius: 12px;
+  box-shadow: none;
+}
+.fi-table-panel th {
+  font-family: Monaco, Menlo, monospace;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.3px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.fi-table-panel td {
+  padding-top: 18px;
+  padding-bottom: 18px;
+  font-size: 12px;
+}
+.fi-table-panel tr button {
+  min-height: 36px;
+  color: #422082;
+  font-size: 11px;
+  padding: 8px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+}
+.fi-table-panel tr:hover {
+  background-color: #f8f6fb;
+}
+.fi-app .rounded-2xl {
+  border-radius: 12px;
+}
+.fi-app .rounded-xl {
+  border-radius: 8px;
+}
+.fi-app .shadow-sm {
+  box-shadow: none;
+}
+.fi-detail {
+  max-width: 1472px;
+}
+.fi-claim-banner {
+  border-top: 3px solid #422082;
+  padding: 32px;
+  gap: 24px;
+}
+.fi-claim-banner h1 {
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 1.2;
+}
+.fi-claim-banner > div:first-child > p {
+  margin-top: 14px;
+  line-height: 1.8;
+  font-size: 13px;
+}
+.fi-detail .bg-white > div > h2,
+.fi-detail .bg-white > h3 {
+  font-size: 17px;
+  font-weight: 500;
+}
+.fi-detail .text-xs {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.fi-detail .grid.grid-cols-1.lg\:grid-cols-12 {
+  gap: 24px;
+}
+.fi-case-panel {
+  border-top: 3px solid #422082;
+  padding: 30px;
+}
+.fi-case-panel button {
+  min-height: 42px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  font-size: 10px;
+}
+.fi-case-panel #btn-start-investigation,
+.fi-case-panel #btn-clear-claim,
+.fi-case-panel #btn-confirm-fraud,
+.fi-case-panel #btn-add-note {
+  background: #150f23;
+  color: #fff;
+}
+.fi-case-panel input,
+.fi-case-panel textarea {
+  min-width: 0;
+  border-radius: 6px;
+  background: #fff;
+  border-color: #cfcfdb;
+  min-height: 44px;
+}
+.fi-dialog-overlay {
+  background: #150f23c7;
+}
+.fi-dialog-overlay > div {
+  padding: 32px;
+  border-radius: 12px;
+}
+.fi-dialog-overlay button:last-child {
+  background: #150f23;
+  color: #fff;
+}
+.fi-graph {
+  background: #f8f6fb;
+  box-shadow: none;
+  border-radius: 12px;
+}
+.fi-graph .react-flow__node {
+  font-family: Rubik, Arial, sans-serif;
+}
+.fi-graph .react-flow__node > div {
+  box-shadow: none;
+  border-width: 1px;
+  border-radius: 8px;
+}
+@media (min-width: 1024px) {
+  .fi-header .hidden.sm\:block.font-extrabold {
+    font-size: 17px;
+    font-weight: 500;
+  }
+}
+@media (max-width: 1150px) {
+  .fi-login {
+    padding: 48px 32px;
+  }
+  .fi-login-shell {
+    gap: 44px;
+  }
+  .fi-login-intro h1 {
+    font-size: 52px;
+  }
+  .fi-queue-banner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .fi-stats > div {
+    padding: 22px;
+  }
+  .fi-stats > div > div:last-child {
+    width: 36px;
+    height: 36px;
+  }
+  .fi-header > div {
+    height: 78px;
+  }
+}
+@media (max-width: 760px) {
+  .fi-login {
+    padding: 40px 24px;
+    align-items: flex-start;
+  }
+  .fi-login-shell {
+    max-width: 520px;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .fi-login-intro h1 {
+    font-size: 46px;
+    line-height: 1.12;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+  }
+  .fi-login-intro p {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .fi-login-emblem {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+  }
+  .fi-login-emblem svg {
+    width: 30px;
+    height: 30px;
+  }
+  .fi-login-form {
+    padding: 28px;
+  }
+  .fi-header > div {
+    height: 76px;
+  }
+  .fi-main {
+    padding-top: 20px;
+  }
+  .fi-queue-banner {
+    padding: 28px 24px;
+    gap: 22px;
+  }
+  .fi-queue-banner h1 {
+    font-size: 32px;
+    letter-spacing: -0.8px;
+  }
+  .fi-queue-banner p {
+    font-size: 12px;
+    margin-top: 14px;
+  }
+  .fi-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .fi-stats > div {
+    padding: 20px 16px;
+    min-height: 150px;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+  .fi-stats > div > div:last-child {
+    display: none;
+  }
+  .fi-stats p:first-child {
+    font-size: 9px;
+  }
+  .fi-stats > div > div:first-child p:nth-child(2),
+  .fi-stats > div > div:nth-child(2) p:nth-child(2) {
+    font-size: 32px;
+  }
+  .fi-filterbar {
+    padding: 14px;
+  }
+  .fi-filterbar button {
+    font-size: 10px;
+    padding: 9px 10px;
+  }
+  .fi-table-panel table {
+    min-width: 1040px;
+  }
+  .fi-claim-banner {
+    padding: 24px;
+  }
+  .fi-claim-banner h1 {
+    font-size: 28px;
+  }
+  .fi-claim-banner .w-20 {
+    width: 64px;
+    height: 64px;
+  }
+  .fi-claim-banner h3 {
+    font-size: 15px;
+  }
+  .fi-detail > .flex:first-child {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .fi-case-panel {
+    padding: 22px;
+  }
+  .fi-case-panel > .flex > div > .flex {
+    flex-wrap: wrap;
+  }
+  .fi-detail .flex-1 {
+    min-width: 0;
+  }
+  .fi-graph > div.absolute {
+    font-size: 9px;
+    gap: 8px;
+    left: 6px;
+    right: 6px;
+    padding: 8px;
+  }
+  .fi-header .font-extrabold {
+    font-weight: 500;
+  }
+  .fi-case-panel .flex.gap-2 {
+    flex-wrap: wrap;
+  }
+  .fi-case-panel #input-investigation-note {
+    flex-basis: 100%;
+  }
+  .fi-case-panel #btn-add-note {
+    width: 100%;
+    justify-content: center;
+  }
+}
+@media (max-width: 390px) {
+  .fi-login {
+    padding: 32px 20px;
+  }
+  .fi-login-intro h1 {
+    font-size: 38px;
+  }
+  .fi-login-form {
+    padding: 24px 20px;
+  }
+  .fi-queue-banner {
+    padding: 24px 20px;
+  }
+  .fi-queue-banner h1 {
+    font-size: 27px;
+  }
+  .fi-stats > div {
+    padding: 18px 13px;
+  }
+  .fi-claim-banner {
+    padding: 20px;
+  }
+  .fi-claim-banner h3 {
+    font-size: 13px;
+  }
+  .fi-detail .grid.grid-cols-2 {
+    gap: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.fi-login-form > .mb-5 {
+  color: #7b2149;
+  background: #fff2f7;
+  border-color: #f8b6d0;
+}
+.fi-login-form > .mb-5 svg {
+  color: #942550;
 }

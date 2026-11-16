@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { claimsAPI, investigationAPI } from "../api";
 import StatusBadge from "../components/StatusBadge";
@@ -31,6 +31,39 @@ export const ClaimDetailPage = () => {
   const [actionLoading, setActionLoading] = useState(false);
   const [outcomeModal, setOutcomeModal] = useState(null); // 'cleared' | 'confirmed_fraud' | null
   const [outcomeText, setOutcomeText] = useState("");
+  const outcomeRef = useRef(null);
+  useEffect(() => {
+    if (!outcomeModal) return;
+    const previous = document.activeElement;
+    const dialog = outcomeRef.current;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialog?.querySelector("textarea")?.focus();
+    const onKey = (event) => {
+      if (event.key === "Escape") setOutcomeModal(null);
+      if (event.key === "Tab") {
+        const controls = [
+          ...dialog.querySelectorAll("textarea,button:not(:disabled)"),
+        ];
+        const first = controls[0],
+          last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        }
+        if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = previousOverflow;
+      previous?.focus();
+    };
+  }, [outcomeModal]);
 
   useEffect(() => {
     loadClaimData();
@@ -76,7 +109,9 @@ export const ClaimDetailPage = () => {
 
     try {
       setSubmittingNote(true);
-      const res = await investigationAPI.update(claimId, { note: newNote.trim() });
+      const res = await investigationAPI.update(claimId, {
+        note: newNote.trim(),
+      });
       setData((prev) => ({
         ...prev,
         investigation: res.investigation,
@@ -94,7 +129,9 @@ export const ClaimDetailPage = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px]">
         <div className="w-10 h-10 border-3 border-rose-600 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-slate-500 text-sm font-medium">Loading claim intelligence & relationships...</p>
+        <p className="text-slate-500 text-sm font-medium">
+          Loading claim intelligence & relationships...
+        </p>
       </div>
     );
   }
@@ -103,17 +140,27 @@ export const ClaimDetailPage = () => {
     return (
       <div className="text-center py-16">
         <h2 className="text-xl font-bold text-slate-800">Claim not found</h2>
-        <Link to="/" className="text-rose-600 text-sm hover:underline mt-2 inline-block">
+        <Link
+          to="/"
+          className="text-rose-600 text-sm hover:underline mt-2 inline-block"
+        >
           Return to dashboard
         </Link>
       </div>
     );
   }
 
-  const { claim, risk, customerHistory = [], providerStats, relatedClaims = [], investigation } = data;
+  const {
+    claim,
+    risk,
+    customerHistory = [],
+    providerStats,
+    relatedClaims = [],
+    investigation,
+  } = data;
 
   return (
-    <div className="space-y-8 max-w-7xl mx-auto pb-12">
+    <div className="fi-detail space-y-8 max-w-7xl mx-auto pb-12">
       {/* Top Breadcrumb & Action Bar */}
       <div className="flex items-center justify-between">
         <Link
@@ -132,7 +179,7 @@ export const ClaimDetailPage = () => {
       </div>
 
       {/* Main Header / Risk Card */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="fi-claim-banner bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
@@ -145,7 +192,9 @@ export const ClaimDetailPage = () => {
           </div>
           <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
             {claim.customerName}{" "}
-            <span className="text-slate-400 font-normal text-base">({claim.customerId})</span>
+            <span className="text-slate-400 font-normal text-base">
+              ({claim.customerId})
+            </span>
           </h1>
           <p className="text-xs text-slate-500 mt-1 max-w-2xl leading-relaxed">
             {claim.description}
@@ -162,9 +211,12 @@ export const ClaimDetailPage = () => {
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="p-5 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
           <div>
-            <h2 className="text-base font-bold text-slate-900">Why was this claim flagged?</h2>
+            <h2 className="text-base font-bold text-slate-900">
+              Why was this claim flagged?
+            </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              Transparent evaluation of all 5 deterministic suspicious indicators
+              Transparent evaluation of all 5 deterministic suspicious
+              indicators
             </p>
           </div>
           <StatusBadge status={risk.level} type="risk" />
@@ -230,37 +282,49 @@ export const ClaimDetailPage = () => {
             </h3>
             <div className="grid grid-cols-2 gap-4 text-xs">
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="text-slate-400 block text-[11px]">Claim Amount</span>
+                <span className="text-slate-400 block text-[11px]">
+                  Claim Amount
+                </span>
                 <span className="text-base font-extrabold text-slate-900">
                   ₹{claim.claimAmount.toLocaleString("en-IN")}
                 </span>
               </div>
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                <span className="text-slate-400 block text-[11px]">Policy Coverage</span>
+                <span className="text-slate-400 block text-[11px]">
+                  Policy Coverage
+                </span>
                 <span className="text-base font-extrabold text-slate-900">
                   ₹{claim.policyCoverage.toLocaleString("en-IN")}
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">Policy Start Date</span>
+                <span className="text-slate-400 block text-[11px]">
+                  Policy Start Date
+                </span>
                 <span className="font-semibold text-slate-800">
                   {new Date(claim.policyStartDate).toLocaleDateString()}
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">Incident Date</span>
+                <span className="text-slate-400 block text-[11px]">
+                  Incident Date
+                </span>
                 <span className="font-semibold text-slate-800">
                   {new Date(claim.claimDate).toLocaleDateString()}
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">Incident Type</span>
+                <span className="text-slate-400 block text-[11px]">
+                  Incident Type
+                </span>
                 <span className="font-semibold text-slate-800 capitalize">
                   {claim.incidentType.replace(/_/g, " ")}
                 </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[11px]">Payout Account</span>
+                <span className="text-slate-400 block text-[11px]">
+                  Payout Account
+                </span>
                 <span className="font-mono font-semibold text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200">
                   {claim.paymentAccountId}
                 </span>
@@ -279,26 +343,39 @@ export const ClaimDetailPage = () => {
                 {providerStats?.type === "repair_shop"
                   ? "Auto Collision & Repair Facility"
                   : providerStats?.type === "hospital"
-                  ? "Multi-Specialty Hospital"
-                  : providerStats?.type === "clinic"
-                  ? "Specialty Clinic & Rehab Centre"
-                  : providerStats?.type === "contractor"
-                  ? "Restoration Contractor"
-                  : providerStats?.type ? providerStats.type.replace(/_/g, " ") : "Healthcare / Service Provider"}
+                    ? "Multi-Specialty Hospital"
+                    : providerStats?.type === "clinic"
+                      ? "Specialty Clinic & Rehab Centre"
+                      : providerStats?.type === "contractor"
+                        ? "Restoration Contractor"
+                        : providerStats?.type
+                          ? providerStats.type.replace(/_/g, " ")
+                          : "Healthcare / Service Provider"}
               </span>
             </div>
             <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-              <p className="font-bold text-slate-900 text-xs">{providerStats?.name}</p>
+              <p className="font-bold text-slate-900 text-xs">
+                {providerStats?.name}
+              </p>
               <div className="grid grid-cols-2 gap-2 mt-2 text-xs">
                 <div>
-                  <span className="text-slate-400 text-[11px] block">Average Claim Bill</span>
+                  <span className="text-slate-400 text-[11px] block">
+                    Average Claim Bill
+                  </span>
                   <span className="font-semibold text-slate-800">
-                    ₹{Math.round(providerStats?.averageClaimAmount || 0).toLocaleString("en-IN")}
+                    ₹
+                    {Math.round(
+                      providerStats?.averageClaimAmount || 0,
+                    ).toLocaleString("en-IN")}
                   </span>
                 </div>
                 <div>
-                  <span className="text-slate-400 text-[11px] block">Claims Serviced</span>
-                  <span className="font-semibold text-slate-800">{providerStats?.claimCount} total</span>
+                  <span className="text-slate-400 text-[11px] block">
+                    Claims Serviced
+                  </span>
+                  <span className="font-semibold text-slate-800">
+                    {providerStats?.claimCount} total
+                  </span>
                 </div>
               </div>
             </div>
@@ -308,10 +385,13 @@ export const ClaimDetailPage = () => {
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <Clock className="w-4 h-4 text-indigo-600" />
-              Claimant Filing History (Past Claims by This Person) ({customerHistory.length})
+              Claimant Filing History (Past Claims by This Person) (
+              {customerHistory.length})
             </h3>
             {customerHistory.length === 0 ? (
-              <p className="text-xs text-slate-400 italic">No previous claims filed by this customer.</p>
+              <p className="text-xs text-slate-400 italic">
+                No previous claims filed by this customer.
+              </p>
             ) : (
               <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                 {customerHistory.map((past) => (
@@ -320,8 +400,12 @@ export const ClaimDetailPage = () => {
                     className="p-2.5 rounded-xl border border-slate-100 bg-slate-50 flex items-center justify-between text-xs"
                   >
                     <div>
-                      <span className="font-mono font-bold text-slate-800 mr-2">{past.claimId}</span>
-                      <span className="capitalize text-slate-600">{past.incidentType.replace(/_/g, " ")}</span>
+                      <span className="font-mono font-bold text-slate-800 mr-2">
+                        {past.claimId}
+                      </span>
+                      <span className="capitalize text-slate-600">
+                        {past.incidentType.replace(/_/g, " ")}
+                      </span>
                       <span className="text-slate-400 block text-[10px]">
                         {new Date(past.claimDate).toLocaleDateString()}
                       </span>
@@ -344,10 +428,13 @@ export const ClaimDetailPage = () => {
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
             <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <CreditCard className="w-4 h-4 text-rose-600" />
-              Linked Claims (Shared Account or Provider) ({relatedClaims.length})
+              Linked Claims (Shared Account or Provider) ({relatedClaims.length}
+              )
             </h3>
             {relatedClaims.length === 0 ? (
-              <p className="text-xs text-slate-400 italic">No claims share provider or payment entities.</p>
+              <p className="text-xs text-slate-400 italic">
+                No claims share provider or payment entities.
+              </p>
             ) : (
               <div className="space-y-2">
                 {relatedClaims.map((rel) => (
@@ -363,7 +450,9 @@ export const ClaimDetailPage = () => {
                         >
                           {rel.claimId}
                         </Link>
-                        <span className="font-medium text-slate-800">{rel.customerName}</span>
+                        <span className="font-medium text-slate-800">
+                          {rel.customerName}
+                        </span>
                       </div>
                       <span className="text-rose-600 text-[10px] font-semibold mt-0.5 block">
                         {rel.relationshipReason}
@@ -389,27 +478,39 @@ export const ClaimDetailPage = () => {
           <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-bold text-slate-900">Entity Connection Map (Fraud Ring Visualizer)</h3>
+                <h3 className="text-sm font-bold text-slate-900">
+                  Entity Connection Map (Fraud Ring Visualizer)
+                </h3>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Visual map connecting claimants, claims, payout bank accounts, and providers
+                  Visual map connecting claimants, claims, payout bank accounts,
+                  and providers
                 </p>
               </div>
             </div>
-            <RelationshipGraph nodes={graphData.nodes} edges={graphData.edges} />
+            <RelationshipGraph
+              nodes={graphData.nodes}
+              edges={graphData.edges}
+            />
           </div>
         </div>
       </div>
 
       {/* Section 2: Human Investigation Panel & Case Management */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
+      <div className="fi-case-panel bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-lg font-bold text-slate-900">Investigator Case File & Actions</h2>
-              <StatusBadge status={investigation?.status || "open"} type="status" />
+              <h2 className="text-lg font-bold text-slate-900">
+                Investigator Case File & Actions
+              </h2>
+              <StatusBadge
+                status={investigation?.status || "open"}
+                type="status"
+              />
             </div>
             <p className="text-xs text-slate-500 mt-1">
-              Automated signals highlight suspicion; only a human investigator confirms fraud or clears the claim.
+              Automated signals highlight suspicion; only a human investigator
+              confirms fraud or clears the claim.
             </p>
           </div>
 
@@ -450,7 +551,8 @@ export const ClaimDetailPage = () => {
               </>
             )}
 
-            {(investigation?.status === "cleared" || investigation?.status === "confirmed_fraud") && (
+            {(investigation?.status === "cleared" ||
+              investigation?.status === "confirmed_fraud") && (
               <button
                 disabled={actionLoading}
                 onClick={() => handleUpdateStatus("under_investigation")}
@@ -478,24 +580,41 @@ export const ClaimDetailPage = () => {
             )}
             <div>
               <p className="font-bold text-xs uppercase tracking-wider">
-                Case Decision Recorded: {investigation.status.replace(/_/g, " ")}
+                Case Decision Recorded:{" "}
+                {investigation.status.replace(/_/g, " ")}
               </p>
-              <p className="text-xs mt-1 leading-relaxed">{investigation.outcome}</p>
+              <p className="text-xs mt-1 leading-relaxed">
+                {investigation.outcome}
+              </p>
             </div>
           </div>
         )}
 
         {/* Modal / Dialog for Recording Outcome */}
         {outcomeModal && (
-          <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200">
+          <div className="fi-dialog-overlay fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div
+              ref={outcomeRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label={
+                outcomeModal === "confirmed_fraud"
+                  ? "Confirm Case as Fraud"
+                  : "Clear Claim"
+              }
+              className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200"
+            >
               <h3 className="text-base font-bold text-slate-900">
-                {outcomeModal === "confirmed_fraud" ? "Confirm Case as Fraud" : "Clear Claim"}
+                {outcomeModal === "confirmed_fraud"
+                  ? "Confirm Case as Fraud"
+                  : "Clear Claim"}
               </h3>
               <p className="text-xs text-slate-500 mt-1">
-                Provide an explicit reason or evidence summary for this final determination.
+                Provide an explicit reason or evidence summary for this final
+                determination.
               </p>
               <textarea
+                aria-label="Decision justification"
                 rows={3}
                 value={outcomeText}
                 onChange={(e) => setOutcomeText(e.target.value)}
@@ -535,6 +654,7 @@ export const ClaimDetailPage = () => {
           <div className="flex gap-2">
             <input
               type="text"
+              aria-label="Add Case Note"
               id="input-investigation-note"
               value={newNote}
               onChange={(e) => setNewNote(e.target.value)}
@@ -556,10 +676,13 @@ export const ClaimDetailPage = () => {
         {/* Case Timeline */}
         <div className="space-y-3 pt-3 border-t border-slate-100">
           <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-            Investigation Activity Timeline ({investigation?.notes?.length || 0})
+            Investigation Activity Timeline ({investigation?.notes?.length || 0}
+            )
           </h4>
-          {(!investigation?.notes || investigation.notes.length === 0) ? (
-            <p className="text-xs text-slate-400 italic">No notes recorded yet.</p>
+          {!investigation?.notes || investigation.notes.length === 0 ? (
+            <p className="text-xs text-slate-400 italic">
+              No notes recorded yet.
+            </p>
           ) : (
             <div className="space-y-3" id="investigation-notes-list">
               {investigation.notes.map((note, index) => (
@@ -568,10 +691,14 @@ export const ClaimDetailPage = () => {
                   className="p-3.5 rounded-xl border border-slate-100 bg-slate-50/80 text-xs space-y-1"
                 >
                   <div className="flex items-center justify-between text-slate-500 text-[11px]">
-                    <span className="font-semibold text-slate-700">{note.author}</span>
+                    <span className="font-semibold text-slate-700">
+                      {note.author}
+                    </span>
                     <span>{new Date(note.createdAt).toLocaleString()}</span>
                   </div>
-                  <p className="text-slate-800 font-medium leading-relaxed">{note.text}</p>
+                  <p className="text-slate-800 font-medium leading-relaxed">
+                    {note.text}
+                  </p>
                 </div>
               ))}
             </div>

@@ -42,7 +42,8 @@ export const DashboardPage = () => {
       selectedFilter === "ALL" ||
       claim.riskLevel === selectedFilter ||
       (selectedFilter === "INVESTIGATION" &&
-        (claim.investigationStatus === "open" || claim.investigationStatus === "under_investigation"));
+        (claim.investigationStatus === "open" ||
+          claim.investigationStatus === "under_investigation"));
 
     const query = search.toLowerCase().trim();
     const matchesSearch =
@@ -60,7 +61,9 @@ export const DashboardPage = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px]">
         <div className="w-10 h-10 border-3 border-rose-600 border-t-transparent rounded-full animate-spin mb-4" />
-        <p className="text-slate-500 text-sm font-medium">Running fraud screening engine...</p>
+        <p className="text-slate-500 text-sm font-medium">
+          Running fraud screening engine...
+        </p>
       </div>
     );
   }
@@ -68,15 +71,17 @@ export const DashboardPage = () => {
   const { stats = {} } = data;
 
   return (
-    <div className="space-y-5 sm:space-y-8 w-full">
+    <div className="fi-dashboard space-y-5 sm:space-y-8 w-full">
       {/* Page Title & Intro */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
+      <div className="fi-queue-banner flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
         <div>
           <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
-            Claims Risk Screening & Investigation Queue
+            Claims Risk Screening &{" "}
+            <span className="fi-keyword">Investigation</span> Queue
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
-            Automated intelligence triage ranking claims by suspicious indicators, claimant history, and shared entities.
+            Automated intelligence triage ranking claims by suspicious
+            indicators, claimant history, and shared entities.
           </p>
         </div>
         <div className="flex items-center gap-2 self-start md:self-auto">
@@ -88,7 +93,7 @@ export const DashboardPage = () => {
       </div>
 
       {/* 4 Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5">
+      <div className="fi-stats grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5">
         <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
@@ -97,7 +102,9 @@ export const DashboardPage = () => {
             <p className="text-2xl font-extrabold text-slate-900 mt-1">
               {stats.totalClaims || 0}
             </p>
-            <p className="text-[11px] text-slate-400 mt-0.5">100% evaluated via rules</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">
+              100% evaluated via rules
+            </p>
           </div>
           <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700 flex-shrink-0">
             <FileText className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -130,7 +137,9 @@ export const DashboardPage = () => {
             <p className="text-2xl font-extrabold text-amber-700 mt-1">
               {stats.mediumRisk || 0}
             </p>
-            <p className="text-[11px] text-amber-600 font-medium mt-0.5">Review Recommended</p>
+            <p className="text-[11px] text-amber-600 font-medium mt-0.5">
+              Review Recommended
+            </p>
           </div>
           <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 border border-amber-100 flex-shrink-0">
             <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -145,7 +154,9 @@ export const DashboardPage = () => {
             <p className="text-2xl font-extrabold text-blue-700 mt-1">
               {stats.openInvestigations || 0}
             </p>
-            <p className="text-[11px] text-blue-500 font-medium mt-0.5">Open / Under Review</p>
+            <p className="text-[11px] text-blue-500 font-medium mt-0.5">
+              Open / Under Review
+            </p>
           </div>
           <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 border border-blue-100 flex-shrink-0">
             <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -154,7 +165,7 @@ export const DashboardPage = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="fi-filterbar bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Filter Pills */}
         <div className="flex items-center gap-1.5 flex-wrap w-full md:w-auto">
           {[
@@ -182,6 +193,7 @@ export const DashboardPage = () => {
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
+            aria-label="Search claim, claimant, provider..."
             placeholder="Search claim, claimant, provider..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -191,7 +203,7 @@ export const DashboardPage = () => {
       </div>
 
       {/* Triage Claims Queue Table */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="fi-table-panel bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -225,8 +237,12 @@ export const DashboardPage = () => {
                       {claim.claimId}
                     </td>
                     <td className="py-3 px-3.5 whitespace-nowrap">
-                      <div className="font-semibold text-slate-900 leading-tight">{claim.customerName}</div>
-                      <div className="text-[10px] text-slate-400 font-mono mt-0.5">{claim.customerId}</div>
+                      <div className="font-semibold text-slate-900 leading-tight">
+                        {claim.customerName}
+                      </div>
+                      <div className="text-[10px] text-slate-400 font-mono mt-0.5">
+                        {claim.customerId}
+                      </div>
                     </td>
                     <td className="py-3 px-3.5 whitespace-nowrap">
                       <span className="px-2 py-0.5 rounded bg-slate-100 font-medium text-[11px] text-slate-700 capitalize">
@@ -243,12 +259,18 @@ export const DashboardPage = () => {
                       </div>
                     </td>
                     <td className="py-3 px-3.5 min-w-[200px] max-w-sm">
-                      <p className="truncate text-slate-700 text-[11px] font-medium" title={claim.topReason}>
+                      <p
+                        className="truncate text-slate-700 text-[11px] font-medium"
+                        title={claim.topReason}
+                      >
                         {claim.topReason}
                       </p>
                     </td>
                     <td className="py-3 px-3.5 whitespace-nowrap">
-                      <StatusBadge status={claim.investigationStatus} type="status" />
+                      <StatusBadge
+                        status={claim.investigationStatus}
+                        type="status"
+                      />
                     </td>
                     <td className="py-3.5 px-4 text-right whitespace-nowrap">
                       <button
